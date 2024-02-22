@@ -20,6 +20,8 @@ export async function scrapeNews() {
 
     const date = getDate($, web);
 
+    const link = getNewsLink($, web);
+
     for (let i = 0; i < image.length; i++) {
       news.push({
         source: web.source,
@@ -27,6 +29,7 @@ export async function scrapeNews() {
         title: title[i],
         description: description[i],
         date: date[i],
+        link: link[i],
       });
     }
   }
@@ -63,5 +66,11 @@ function getTitle($, web) {
 function getImage($, web) {
   return $(web.imageSelector)
     .map((_, el) => el.attribs['data-src'] || el.attribs['src'])
+    .get();
+}
+
+function getNewsLink($, web) {
+  return $(web.newsLinkSelector)
+    .map((_, el) => el.attribs['href'])
     .get();
 }
