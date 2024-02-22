@@ -52,7 +52,7 @@ async function scrapeNews() {
     const $ = cheerio.load(body);
 
     const image = $(web.imageSelector)
-      .map((_, el) => el.attribs.src)
+      .map((_, el) => el.attribs['data-src'] || el.attribs['src'])
       .get();
 
     const title = $(web.titleSelector)
